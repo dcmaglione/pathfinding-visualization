@@ -1,25 +1,32 @@
-# Visualization of A* Pathfinding Algorithm
-# Dominic C. Maglione - 07/01/2021
-## CONTROLS ##
-# Left-click: Place start, end, barriers (in that order)
-# Right-click: Erases nodes
-# Space: Starts algorithm
-# r: Clears grid
+#### Visualization of A* Pathfinding Algorithm ###
+#### Dominic C. Maglione - 07/01/2021 ###
 
-## SETUP ##
-# Imports
+
+### CONTROLS ###
+# Left-click: Specifics listed below
+#   - First click: Places start node
+#   - Second click: Places end node
+#   - Third and all other clicks: Places barriers
+# Right-click: Eraser, hold down and hover over to erase nodes
+# Space: Starts algorithm
+# r: Clears/resets grid
+
+
+### SETUP ###
+## IMPORTS ##
 import pygame
 import math
 from queue import PriorityQueue
-
 from pygame import fastevent
 
-# Initializes and sets window size
+
+# Initializes window and sets size #
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
 pygame.display.set_caption("A* Algorithm Visualization")
 
-# Colors
+
+## COLORS ##
 RED = pygame.Color("#bf616a")
 ORANGE = pygame.Color("#d08770")
 YELLOW = pygame.Color("#ebcb8b")
@@ -32,7 +39,7 @@ GREY = pygame.Color("#4c566a")
 BLACK = pygame.Color("#2e3440")
 
 
-## Node ##
+## NODE ##
 # Defines nodes used in visualization
 class Node:
     # Initializes #
@@ -132,12 +139,12 @@ class Node:
             self.neighbors.append(grid[self.row][self.col - 1])
     
     
-    # Less than
+    # Less than #
     def __lt__(self, other):
         return False
     
     
-## ALGORITHM ##
+### ALGORITHM ###
 # Defines the heuristic function (h-score) w/ Manhattan distance
 def h(p1, p2):
     x1, y1 = p1
@@ -226,7 +233,7 @@ def algorithm(draw, grid, start, end):
     return False
 
 
-## HELPER FUNCTIONS ##
+### HELPER FUNCTIONS ###
 # Creates grid
 def make_grid(rows, width):
     # Defines grid and gap (width of nodes)
@@ -280,7 +287,7 @@ def get_clicked_position(pos, rows, width):
     return row, col
 
 
-## MAIN ##
+### MAIN ###
 # Main function loop
 def main(win, width):
     # Define number of rows and grid
@@ -359,7 +366,9 @@ def main(win, width):
                     start = None
                     end = None
                     grid = make_grid(ROWS, width)
-            
+        
+    # Quits when event is exited    
     pygame.quit()
     
+# Creates window
 main(WIN, WIDTH)
