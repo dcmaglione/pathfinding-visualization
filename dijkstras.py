@@ -1,4 +1,4 @@
-#### Visualization of A* Pathfinding Algorithm ###
+#### Visualization of Dijkstra's Pathfinding Algorithm ###
 #### Dominic C. Maglione - 07/01/2021 ###
 
 
@@ -23,7 +23,7 @@ from pygame import fastevent
 # Initializes window and sets size #
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
-pygame.display.set_caption("A* Algorithm Visualization")
+pygame.display.set_caption("Dijkstra's Algorithm Visualization")
 
 
 ## COLORS ##
@@ -154,7 +154,7 @@ def reconstruct_path(came_from, current, draw):
         # Draws node
         current.make_path()
         draw()
-
+        
 # Defines the heuristic function (h-score) w/ Manhattan distance
 def h(p1, p2):
     x1, y1 = p1
