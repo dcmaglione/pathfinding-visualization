@@ -155,82 +155,9 @@ def reconstruct_path(came_from, current, draw):
         current.make_path()
         draw()
         
-# Defines the heuristic function (h-score) w/ Manhattan distance
-def h(p1, p2):
-    x1, y1 = p1
-    x2, y2 = p2
-    return abs(x1 - x2) + abs(y1 - y2)
-
-# Defines algorithm (A*)
+# Defines algorithm (Dijkstras)
 def algorithm(draw, grid, start, end):
-    # Initializes counter and open set
-    count = 0
-    open_set = PriorityQueue()
-    open_set.put((0, count, start))
-    came_from = {}  # Prior node
-    
-    # Sets g-score, current shortest distance from start to node
-    g_score = {node: float("inf") for row in grid for node in row}
-    g_score[start] = 0
-    
-    # Sets f-score, predicted distance from current node to end 
-    f_score = {node: float("inf") for row in grid for node in row}
-    f_score[start] = h(start.get_pos(), end.get_pos())
-    
-    # Keeps track of items in priority queue
-    open_set_hash = {start}
-    
-    # Runs until open set is empty (every node has been considered)
-    while not open_set.empty():
-        # Quits visualization if user closes
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-        
-        # Gets smallest possible node and syncs with hash by removing
-        current = open_set.get()[2]
-        open_set_hash.remove(current)
-        
-        # If current node is end path has been found
-        if current == end:
-            # Reconstructs path using helper method
-            reconstruct_path(came_from, end, draw)
-            
-            # Recolors start and end 
-            start.make_start()
-            end.make_end()
-            return True
-        
-        # Considers neighbors of current node
-        for neighbor in current.neighbors:
-            # Checks next g-score
-            temp_g_score = g_score[current] + 1
-            
-            # If g-score is shorter save path
-            if temp_g_score < g_score[neighbor]:
-                # Updates prior node and scores
-                came_from[neighbor] = current
-                g_score[neighbor] = temp_g_score
-                f_score[neighbor] = temp_g_score + h(neighbor.get_pos(), end.get_pos())
-                
-                # Checks if neighbor is already in hash
-                if neighbor not in open_set_hash:
-                    count += 1
-                    
-                    # Store neighbor into open set and mark open
-                    open_set.put((f_score[neighbor], count, neighbor))
-                    open_set_hash.add(neighbor)
-                    neighbor.make_open()
-               
-        # Draws path so far     
-        draw()
-        
-        # If the current node is not start mark closed
-        if current != start:
-            current.make_closed()
-            
-    # Only returns if path not found
-    return False
+    pass
 
 
 ### HELPER FUNCTIONS ###
